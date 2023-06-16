@@ -72,7 +72,15 @@
 					"strict" : false
 				},
 				{
+					"name" : "DRAM_LDQM",
+					"strict" : false
+				},
+				{
 					"name" : "DRAM_RAS_N",
+					"strict" : false
+				},
+				{
+					"name" : "DRAM_UDQM",
 					"strict" : false
 				},
 				{
@@ -264,11 +272,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "ARDUINO_IO[0]",
+					"name" : "ARDUINO_IO[8]",
 					"strict" : false
 				},
 				{
-					"name" : "ARDUINO_IO[1]",
+					"name" : "ARDUINO_IO[9]",
 					"strict" : false
 				},
 				{

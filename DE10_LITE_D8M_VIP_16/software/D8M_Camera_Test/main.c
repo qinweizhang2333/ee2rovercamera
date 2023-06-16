@@ -1,10 +1,9 @@
-
-
 #include <stdio.h>
 #include "I2C_core.h"
 #include "terasic_includes.h"
 #include "mipi_camera_config.h"
 #include "mipi_bridge_config.h"
+#include "compress.h"
 
 #include "auto_focus.h"
 
@@ -20,8 +19,8 @@
 #define EEE_IMGPROC_ID 2
 #define EEE_IMGPROC_BBCOL 3
 
-#define EXPOSURE_INIT 0x000000
-#define EXPOSURE_STEP 0x000
+#define EXPOSURE_INIT 0x005000
+#define EXPOSURE_STEP 0x300
 #define GAIN_INIT 0x080
 #define GAIN_STEP 0x040
 #define DEFAULT_LEVEL 3
@@ -38,6 +37,9 @@
 #define MIPI_REG_MDLSynErr		0x0068
 #define MIPI_REG_FrmErrCnt		0x0080
 #define MIPI_REG_MDLErrCnt		0x0090
+
+void MipiCameraRead(int cameraIndex, uint8_t* imageBuffer);
+void Focus_Window(int x, int y);
 
 void mipi_clear_error(void){
 	MipiBridgeRegWrite(MIPI_REG_CSIStatus,0x01FF); // clear error
@@ -201,7 +203,28 @@ int main()
         	while (1);
         }
 
+
   while(1){
+		//////////////////////////////////////////
+		//////////////////////////////////////////
+		//////////////////////////////////////////
+
+		// Capture the image
+		MipiCameraRead(0, ImageBuffer);
+
+		// Compress the image
+		uint8_t* compressedImage = compress_image(ImageBuffer);
+
+
+		// Free the memory allocated for the compressed image
+		free(compressedImage);
+
+		// Delay for 1 second
+		usleep(1000000);
+		//////////////////////////////////////////
+		//////////////////////////////////////////
+		//////////////////////////////////////////
+
 
        // touch KEY0 to trigger Auto focus
 	   if((IORD(KEY_BASE,0)&0x03) == 0x02){
