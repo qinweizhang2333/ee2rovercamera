@@ -78,7 +78,7 @@ wire red_detect, green_detect, white_detect, yellow_detect, blue_detect;
 //assign red_detect = red[7] & ~green[7] & ~blue[7];
 //assign green_detect = ~red[7] & green[7] & ~blue[7];
 //assign yellow_detect = red[7] & green[7] & ~blue[7];
-//assign white_detect = red[7] & green[7] & blue[7];
+//assign white_detect = red[7] & green[7] & blue[7]; 
 
 // Define color ranges
 parameter [7:0] RED_MIN = 8'hF0, RED_MAX = 8'hFF;
